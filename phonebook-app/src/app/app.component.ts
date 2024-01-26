@@ -27,10 +27,11 @@ export class AppComponent {
     const nameControl = this.phonebookForm.get('name');
     if (nameControl && nameControl.value) {
       const name = nameControl.value;
-      const results = this.phonebookService.searchByName(name);
-      console.log('Search by Name Results:', results);
+      this.customers = this.phonebookService.searchByName(name);
+      console.log('Search by Name Results:', this.customers);
     }
   }
+
 
   searchByPhoneNumber(): void {
     const phoneNumberControl = this.phonebookForm.get('phoneNumber');
@@ -63,6 +64,9 @@ export class AppComponent {
 
       this.phonebookService.addCustomer(customer);
       this.phonebookService.addPhone(phone);
+
+      // Update the customers array
+      this.customers = Array.from(this.phonebookService.getCustomers());
 
       // Reset the form
       this.phonebookForm.reset();
